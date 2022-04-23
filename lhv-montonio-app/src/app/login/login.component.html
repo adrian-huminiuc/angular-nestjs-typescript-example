@@ -1,0 +1,15 @@
+<div fxLayout="column" fxLayoutAlign="center center" style="height: 100%">
+  <h1 *ngIf="error">{{error}}</h1>
+  <mat-card >
+    <mat-card-content fxLayout="column" fxLayoutAlign="center center" >
+      <h1>Check you account list</h1>
+      <a mat-raised-button color="primary"
+         href="{{url}}">Login</a>
+
+      <a mat-raised-button color="accent"
+         (click)="useExistingUser()">
+        Use existing test user
+      </a>
+    </mat-card-content>
+  </mat-card>
+</div>

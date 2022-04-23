@@ -1,0 +1,27 @@
+<div class="container" fxLayout="column" fxLayoutAlign="center center">
+  <div class="logout" fxLayout="row" fxLayoutAlign="end end" >
+    <a mat-raised-button
+       color="warn"
+       (click)="logout()">
+      logout
+    </a>
+  </div>
+  <div fxLayout="row" fxLayoutGap="10px"></div>
+  <mat-card>
+    <mat-card-content fxLayout="column" fxLayoutAlign="left" >
+      <mat-list>
+        <div mat-subheader>Accounts <b> ({{accounts.length}}) </b></div>
+        <mat-divider></mat-divider>
+        <mat-list-item *ngFor="let account of accounts">
+          <mat-icon mat-list-icon>account_circle</mat-icon>
+          <mat-divider></mat-divider>
+          <div mat-line><b>Name: </b>{{account.name}}</div>
+          <div mat-line><b>Iban: </b>{{account.iban}}</div>
+          <div mat-line><b>Product: </b>{{account.product}}</div>
+          <div mat-line><b>Currency: </b>{{account.currency}}</div>
+          <div mat-line><b>Cash account type: </b>{{account.cashAccountType}}</div>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div>

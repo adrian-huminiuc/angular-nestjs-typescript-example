@@ -1,0 +1,61 @@
+version: "3.4"
+services:
+  api:
+    container_name: montonio-backend-app
+    build:
+      context: ./lhv-montonio-api
+      dockerfile: ./Dockerfile
+      args:
+        ENV: development
+    volumes:
+      - ./lhv-montonio-api:/home/node/service
+      - /home/node/service/node_modules
+    env_file: .env
+    user: root
+    environment:
+      NODE_ENV: development
+      MYSQL_HOST: mysql
+    command: npm run start:dev
+    ports:
+      - ${API_PORT}:${API_PORT}
+    depends_on:
+      - mysql
+
+  app:
+    container_name: montonio-client-app
+    build:
+      context: ./lhv-montonio-app
+      dockerfile: ./Dockerfile
+      args:
+        ENV: development
+    volumes:
+      - ./lhv-montonio-app:/home/node/service
+      - /home/node/service/node_modules
+    env_file: .env
+    user: node:1001
+    environment:
+      NODE_ENV: development
+      APP_URL: ${APP_URL}
+      API_URL: ${API_URL}
+    command: npm run start
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    depends_on:
+      - api
+
+  mysql:
+    image: mysql:8
+    env_file: .env
+    ports:
+      - 33309:${MYSQL_PORT}
+    volumes:
+      - mysql-lhv-montonio-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+
+volumes:
+  mysql-lhv-montonio-data:
+    driver: local

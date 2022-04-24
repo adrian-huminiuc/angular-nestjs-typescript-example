@@ -6,8 +6,9 @@
 ### To run (make sure docker, docker-compose are installed)
 ```bash
 docker-compose run api npm run fixtures
-docker-compose up -d
+docker-compose up
 ```
+App should be running on http://localhost:4200
 
 
 ### To run tests
@@ -16,5 +17,5 @@ docker-compose up -d
 
 export $(cat .env | xargs ) && docker-compose exec mysql mysql -P${MYSQL_PORT} -p${MYSQL_PASSWORD} -u root -e "create database ${MYSQL_DATABASE}_test"
 
-docker-compose exec -it api npm run test
+docker-compose exec api npm run test
 ```
